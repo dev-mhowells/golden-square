@@ -28,8 +28,16 @@ RSpec.describe "Diary integration" do
         diary.add(entry1)
         diary.add(entry2)
         expect(diary.reading_time(3)).to eq 2
-        # => loops over entries and runs diary_entry.reading_time on each, 
-        # then sums them and divides by wpm (the value passed in) to give an estimate for how long 
-        # it would take to read whole diary
+    end
+
+    it "returns the diary entry whose length is most similar to wpm * minutes to read" do
+        diary = Diary.new
+        entry1 = DiaryEntry.new('first entry', 'I ate breakfast today, it was lovely')
+        entry2 = DiaryEntry.new('second entry', 'I ate lunch')
+        entry3 = DiaryEntry.new('second entry', 'I ate dinner and it was ghastly and I really did not enjoy it')
+        diary.add(entry3)
+        diary.add(entry2)
+        diary.add(entry1)
+        expect(diary.find_best_entry_for_reading_time(4, 2)).to eq 'I ate breakfast today, it was lovely'
     end
 end

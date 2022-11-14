@@ -45,5 +45,25 @@ class Diary
       # Returns an instance of diary entry representing the entry that is closest 
       # to, but not over, the length that the user could read in the minutes they
       # have available given their reading speed.
+      # return ('I ate breakfast today, it was lovely')
+
+          # => given 20 wpm and 2 minutes, the user can read 40 words. 
+    # call DiaryEntry.count_words on the title and content of each entry. 
+    # return the entry which is closest to, but not over 40.
+      user_can_read = wpm * minutes #20
+      least_difference = (user_can_read - @entries[0].count_words).abs
+      least_different = @entries[0].contents
+
+      @entries.each do |entry|
+
+        difference = (user_can_read - entry.count_words).abs
+
+        if difference < least_difference
+          least_difference = difference
+          least_different = entry.contents
+        end
+  
+      end
+      return least_different
     end
   end
