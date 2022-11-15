@@ -20,6 +20,6 @@ RSpec.describe "Diary integration" do
         diary.add_num_instance(num1)
         diary.add_entry("1 2 3 4 5")
         diary.add_entry("1 2 3 4 5 6 7 8 9 10")
-        expect(diary.select_entry(1, 10)).to eq [['1 2 3 4 5 6 7 8 9 10'], ['123']]
+        expect(diary.select_entry(1, 10)).to eq ['1 2 3 4 5 6 7 8 9 10', ['123']]
     end
 end

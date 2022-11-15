@@ -148,4 +148,16 @@ UNIT TEST EXAMPLES:
     tasks.show_tasks # => ['eat', 'sleep']
 
 ```
+diary integration spec - structure of return value
+diary class - map
+diary - additional fail
 
+question: didn't end up implementing my unit test examples for diary, 
+their functionality was tested as part of integration testing. I think I should have
+tested them as a unit test before the integration testing, but as the outputs I wanted
+also relied on the integration of the MobileNumbers class, I wasn't sure exactly 
+how I should have gone about it.
+
+question: is the design file considered an integral part of the code which should be updated
+whenever my actual code diverges from it? Or is it there mainly for planning purposes and does
+not need to be updated as I go along and make changes?

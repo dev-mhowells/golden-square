@@ -4,12 +4,13 @@ class Diary
         @entries = []
         # mob nums - arr of instances of mobile numbers
         # each instance has .get_num which returns a string
-        @mob_num_instances = []
+        @mob_nums = []
     end
 
     def add_num_instance(num_instance)
         # adds to mob num instance arr
-        @mob_num_instances << num_instance
+        # @mob_num_instances << num_instance
+        @mob_nums << num_instance.get_num
     end
 
     def add_entry(entry)
@@ -19,41 +20,45 @@ class Diary
 
     def read_entries
 
-        if @entries.length < 1
+        if @entries.empty?
             fail "no entries"
         end
 
         # return diary entries - 1. entry, 2. mob nums
         entries_and_nums = []
-        all_nums = @mob_num_instances.map{ |num_instance| num_instance.get_num }
 
         @entries.each do |entry|
-            output = [entry, all_nums]
+            # output = [entry, all_nums]
+            output = [entry, @mob_nums]
             entries_and_nums.push(output)
         end
         return entries_and_nums
     end
 
     def select_entry(time, wpm)
+
+        if @entries.empty?
+            fail "no entries"
+        end
         # return entry based on time available and reading speed(wpm)
         # - consider entry only, not mob nums
         words = time * wpm # 10
 
         least_difference = (words - @entries[0].split(' ').length).abs
-        p least_difference
+
         recommended_entry = @entries[0]
 
 
         @entries.each do |entry|
             difference = (words - entry.split(' ').length).abs
-            # p difference
+
             if difference < least_difference
                 least_difference = difference
                 recommended_entry = entry
             end
         end
-        all_nums = @mob_num_instances.map{ |num_instance| num_instance.get_num }
-        return [[recommended_entry], all_nums]
+
+        return [recommended_entry, @mob_nums]
     end
 
 end
