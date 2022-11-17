@@ -1,15 +1,15 @@
 require 'take_orders'
+require 'menu'
 
 RSpec.describe TakeOrders do
 
     it "returns all orders" do
         io = double :io
 
-        expect(io).to receive(:gets).and_return("carbonara")
-        expect(io).to receive(:gets).and_return("mushroom pizza")
-
-        menu = double :menu, menu: {'carbonara': '22.00', 'mushroom pizza': '6.00'}
+        menu = Menu.new(io)
         orders = TakeOrders.new(io, menu)
+        expect(io).to receive(:gets).and_return('carbonara')
+        expect(io).to receive(:gets).and_return('mushroom pizza')
         orders.select_item
         orders.select_item
         expect(orders.get_all_orders).to eq("carbonara": "22.00", "mushroom pizza": "6.00")
@@ -19,9 +19,9 @@ RSpec.describe TakeOrders do
         io = double :io
 
         expect(io).to receive(:gets).and_return("carbonara")
-        expect(io).to receive(:gets).and_return("mushroom pizza")
+        expect(io).to receive(:gets).and_return("chicken pizza")
 
-        menu = double :menu, menu: {'carbonara': '22.00'}
+        menu = Menu.new(io)
         orders = TakeOrders.new(io, menu)
         orders.select_item
         expect{orders.select_item}.to raise_error 'no such item'

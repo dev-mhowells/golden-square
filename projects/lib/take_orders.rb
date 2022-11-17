@@ -15,6 +15,7 @@ class TakeOrders
         # checks if item is selectable (needs access to menu)
         # gets item name, pushes to hash
         selection = @io.gets.chomp
+        fail "no such item" if @menu.menu.key?(selection.to_sym) == false
         @all_orders[selection.to_sym] = @menu.menu[selection.to_sym]
     end
 end
